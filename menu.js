@@ -19,7 +19,7 @@ const menu=[
 {cat:'side',name:'كاسة بطاطا وزنجر',price:1.50},
 {cat:'side',name:'صحن زنجر مع جبنة تشيدر',price:3.50},
 {cat:'side',name:'صحن حاملة إشي بجنّن',price:1.50},
-{cat:'side',name:'بوكس الهاشمي',price:2.75,desc:'زنجر وذرة وزيتون وهلبينو وبطاطا'}
+{cat:'side',name:'بوكس هاشمي',price:2.75,desc:'زنجر وذرة وزيتون وهلبينو وبطاطا'}
 ];
 const categories={sandwich:'برجر وزينجر',box:'بوكسات للّمة',potato:'بطاطا وذرة هاشمية',side:'سلطات وأطباق على جنب'};
 
