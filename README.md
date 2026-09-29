@@ -6,7 +6,7 @@ Responsive restaurant website for Hashemi Restaurant in Salt, Jordan.
 - Arabic and English with RTL/LTR layouts and saved language preference.
 - Categorized menu with prices in JOD.
 - Phone ordering, delivery information, Google Maps, reviews and social links.
-- Original restaurant logo; menu images removed as requested.
+- Original restaurant logo; individually generated illustrative menu images and featured Angus burger.
 
 ## Run locally
 Serve this folder using any static web server, for example:
@@ -25,8 +25,9 @@ Open http://localhost:8000. No build step or API keys are required.
 - `brand.png`: restaurant logo.
 
 ## Deployment
-Upload these files to any static hosting service. The repository itself does not enable GitHub Pages or automatic synchronization with the existing hosted site.
+The canonical website is https://codexa-jo7.github.io/hashemi-restaurant/ .
+GitHub Pages publishes the root of the main branch. Make all updates in this repository.
 
-Current hosted site: https://hashemi-salt.codexa-jo.chatgpt.site
+Food images are AI-generated illustrative designs, not photographs of actual servings.
 
 The font is loaded from Google Fonts with a system-font fallback.
