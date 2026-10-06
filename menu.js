@@ -256,8 +256,27 @@ const imageIds=[
   "jalapeno",
   "cheese-extra"
 ];
+const shawarmaItems = [
+  {name:'ساندويش شاورما عادي', en:'Regular Shawarma Sandwich', price:0.75},
+  {name:'ساندويش شاورما سوبر', en:'Super Shawarma Sandwich', price:1.20},
+  {name:'وجبة شاورما عادي', en:'Regular Shawarma Meal', price:2.20},
+  {name:'وجبة شاورما سوبر', en:'Super Shawarma Meal', price:2.85},
+  {name:'وجبة شاورما دبل', en:'Double Shawarma Meal', price:3.25},
+  {name:'وجبة شاورما تريبل', en:'Triple Shawarma Meal', price:4.20},
+  {name:'صندوق الشاورما العائلي', en:'Family Shawarma Box', price:8.00,
+   desc:'4 ساندويشات سوبر، بطاطا، مخلل وصلصة الثوم.',
+   enDesc:'4 super sandwiches, fries, pickles and garlic sauce.'}
+];
+categories.shawarma='الشاورما';
+englishCategories.shawarma='Shawarma';
+shawarmaItems.forEach(item=>{
+  const index=menu.length;
+  menu.push({cat:'shawarma',name:item.name,price:item.price,desc:item.desc});
+  englishNames.push(item.en);
+  if(item.enDesc) englishDescriptions[index]=item.enDesc;
+});
 let currentCategory='all';
-function render(cat=currentCategory){currentCategory=cat;const en=document.documentElement.lang==='en';document.querySelector('#menu-items').innerHTML=menu.map((x,i)=>({...x,i})).filter(x=>cat==='all'||x.cat===cat).map(x=>{const prices=x.prices||(x.sandwich?[['ساندويشة',x.sandwich],['وجبة',x.meal]]:[['',x.price]]);const name=en?englishNames[x.i]:x.name;const desc=en?englishDescriptions[x.i]:x.desc;return `<article class="menu-card${x.bestseller?' bestseller-card':''}"><div class="food-photo"><img src="food-${imageIds[x.i]}.webp" alt="${name}" width="720" height="720" loading="lazy" decoding="async">${x.bestseller?`<span class="bestseller-badge">${en?'Most ordered':'الأكثر طلبًا'}</span>`:''}</div><div class="menu-card-body"><span class="category">${(en?englishCategories:categories)[x.cat]}</span><h3>${name}</h3>${desc?`<p class="description">${desc}</p>`:''}<div class="prices">${prices.map(([label,p])=>`<div class="price"><small>${en?({'ساندويشة':'Sandwich','وجبة':'Meal','صغير':'Small','وسط':'Medium','كبير':'Large'}[label]||label):label}</small><b dir="ltr">${p.toFixed(2)}</b><em>${en?'JOD':'د.أ'}</em></div>`).join('')}</div></div></article>`}).join('')}
+function render(cat=currentCategory){currentCategory=cat;const en=document.documentElement.lang==='en';document.querySelector('#menu-items').innerHTML=menu.map((x,i)=>({...x,i})).filter(x=>cat==='all'||x.cat===cat).map(x=>{const prices=x.prices||(x.sandwich?[['ساندويشة',x.sandwich],['وجبة',x.meal]]:[['',x.price]]);const name=en?englishNames[x.i]:x.name;const desc=en?englishDescriptions[x.i]:x.desc;return `<article class="menu-card${x.bestseller?' bestseller-card':''}${x.cat==='shawarma'?' shawarma-card':''}">${imageIds[x.i]?`<div class="food-photo"><img src="food-${imageIds[x.i]}.webp" alt="${name}" width="720" height="720" loading="lazy" decoding="async">${x.bestseller?`<span class="bestseller-badge">${en?'Most ordered':'الأكثر طلبًا'}</span>`:''}</div>`:''}<div class="menu-card-body"><span class="category">${(en?englishCategories:categories)[x.cat]}</span><h3>${name}</h3>${desc?`<p class="description">${desc}</p>`:''}<div class="prices">${prices.map(([label,p])=>`<div class="price"><small>${en?({'ساندويشة':'Sandwich','وجبة':'Meal','صغير':'Small','وسط':'Medium','كبير':'Large'}[label]||label):label}</small><b dir="ltr">${p.toFixed(2)}</b><em>${en?'JOD':'د.أ'}</em></div>`).join('')}</div></div></article>`}).join('')}
 document.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-cat]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});render(b.dataset.cat)}));render();
 
 
