@@ -257,26 +257,26 @@ const imageIds=[
   "cheese-extra"
 ];
 const shawarmaItems = [
-  {name:'ساندويش شاورما عادي', en:'Regular Shawarma Sandwich', price:0.75},
-  {name:'ساندويش شاورما سوبر', en:'Super Shawarma Sandwich', price:1.20},
-  {name:'وجبة شاورما عادي', en:'Regular Shawarma Meal', price:2.20},
-  {name:'وجبة شاورما سوبر', en:'Super Shawarma Meal', price:2.85},
-  {name:'وجبة شاورما دبل', en:'Double Shawarma Meal', price:3.25},
-  {name:'وجبة شاورما تريبل', en:'Triple Shawarma Meal', price:4.20},
-  {name:'صندوق الشاورما العائلي', en:'Family Shawarma Box', price:8.00,
-   desc:'4 ساندويشات سوبر، بطاطا، مخلل وصلصة الثوم.',
-   enDesc:'4 super sandwiches, fries, pickles and garlic sauce.'}
+  {name:'ساندويش شاورما عالصاج عادي', en:'Regular Saj Shawarma Sandwich', price:0.75},
+  {name:'ساندويش شاورما عالصاج سوبر', en:'Super Saj Shawarma Sandwich', price:1.20},
+  {name:'وجبة شاورما عالصاج عادي', en:'Regular Saj Shawarma Meal', price:2.20},
+  {name:'وجبة شاورما عالصاج سوبر', en:'Super Saj Shawarma Meal', price:2.85},
+  {name:'وجبة شاورما عالصاج دبل', en:'Double Saj Shawarma Meal', price:3.25},
+  {name:'وجبة شاورما عالصاج تريبل', en:'Triple Saj Shawarma Meal', price:4.20},
+  {name:'صندوق شاورما عالصاج العائلي', en:'Family Saj Shawarma Box', price:8.00,
+   desc:'4 ساندويشات شاورما عالصاج سوبر، بطاطا، مخلل وصلصة الثوم.',
+   enDesc:'4 super saj shawarma sandwiches, fries, pickles and garlic sauce.'}
 ];
-categories.shawarma='الشاورما';
-englishCategories.shawarma='Shawarma';
-shawarmaItems.forEach(item=>{
+categories.shawarma='شاورما عالصاج';
+englishCategories.shawarma='Saj Shawarma';
+shawarmaItems.forEach((item,photoIndex)=>{
   const index=menu.length;
-  menu.push({cat:'shawarma',name:item.name,price:item.price,desc:item.desc});
+  menu.push({cat:'shawarma',name:item.name,price:item.price,desc:item.desc,photoIndex});
   englishNames.push(item.en);
   if(item.enDesc) englishDescriptions[index]=item.enDesc;
 });
 let currentCategory='all';
-function render(cat=currentCategory){currentCategory=cat;const en=document.documentElement.lang==='en';document.querySelector('#menu-items').innerHTML=menu.map((x,i)=>({...x,i})).filter(x=>cat==='all'||x.cat===cat).map(x=>{const prices=x.prices||(x.sandwich?[['ساندويشة',x.sandwich],['وجبة',x.meal]]:[['',x.price]]);const name=en?englishNames[x.i]:x.name;const desc=en?englishDescriptions[x.i]:x.desc;return `<article class="menu-card${x.bestseller?' bestseller-card':''}${x.cat==='shawarma'?' shawarma-card':''}">${imageIds[x.i]?`<div class="food-photo"><img src="food-${imageIds[x.i]}.webp" alt="${name}" width="720" height="720" loading="lazy" decoding="async">${x.bestseller?`<span class="bestseller-badge">${en?'Most ordered':'الأكثر طلبًا'}</span>`:''}</div>`:''}<div class="menu-card-body"><span class="category">${(en?englishCategories:categories)[x.cat]}</span><h3>${name}</h3>${desc?`<p class="description">${desc}</p>`:''}<div class="prices">${prices.map(([label,p])=>`<div class="price"><small>${en?({'ساندويشة':'Sandwich','وجبة':'Meal','صغير':'Small','وسط':'Medium','كبير':'Large'}[label]||label):label}</small><b dir="ltr">${p.toFixed(2)}</b><em>${en?'JOD':'د.أ'}</em></div>`).join('')}</div></div></article>`}).join('')}
+function render(cat=currentCategory){currentCategory=cat;const en=document.documentElement.lang==='en';document.querySelector('#menu-items').innerHTML=menu.map((x,i)=>({...x,i})).filter(x=>cat==='all'||x.cat===cat).map(x=>{const prices=x.prices||(x.sandwich?[['ساندويشة',x.sandwich],['وجبة',x.meal]]:[['',x.price]]);const name=en?englishNames[x.i]:x.name;const desc=en?englishDescriptions[x.i]:x.desc;return `<article class="menu-card${x.bestseller?' bestseller-card':''}${x.cat==='shawarma'?' shawarma-card':''}">${imageIds[x.i]?`<div class="food-photo"><img src="food-${imageIds[x.i]}.webp" alt="${name}" width="720" height="720" loading="lazy" decoding="async">${x.bestseller?`<span class="bestseller-badge">${en?'Most ordered':'الأكثر طلبًا'}</span>`:''}</div>`:x.cat==='shawarma'?`<div class="food-photo shawarma-photo" role="img" aria-label="${name}" style="background-position:${(x.photoIndex%3)*50}% ${Math.floor(x.photoIndex/3)*50}%"></div>`:''}<div class="menu-card-body"><span class="category">${(en?englishCategories:categories)[x.cat]}</span><h3>${name}</h3>${desc?`<p class="description">${desc}</p>`:''}<div class="prices">${prices.map(([label,p])=>`<div class="price"><small>${en?({'ساندويشة':'Sandwich','وجبة':'Meal','صغير':'Small','وسط':'Medium','كبير':'Large'}[label]||label):label}</small><b dir="ltr">${p.toFixed(2)}</b><em>${en?'JOD':'د.أ'}</em></div>`).join('')}</div></div></article>`}).join('')}
 document.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-cat]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});render(b.dataset.cat)}));render();
 
 
